@@ -63,6 +63,23 @@ Replace `your_api_key_here` with your actual API key for clause processing.
 
 ---
 
+## Preloaded Databases
+
+This repository includes two preloaded databases to simplify testing and development:
+
+### `wilson.db` (SQLite Database)
+- Stores file names and their corresponding IDs.
+- Used to keep track of uploaded documents.
+- Automatically updated when new files are uploaded via the `/upload/` route.
+
+### `chroma.db` (ChromaDB Persistent Database)
+- Contains embeddings for two preprocessed legal contracts.
+- Preloaded data allows for immediate testing of clause extraction without uploading new files.
+- The embeddings are created using the SentenceTransformer model `all-MiniLM-L6-v2`.
+
+These databases ensure you can start testing and exploring the app's functionality right out of the box.
+
+
 ## Routes
 
 ### `GET /`
