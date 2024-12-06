@@ -42,42 +42,43 @@ def read_root():
 @app.get("/clauses/{filename}")
 def get_clauses(filename: str):
   
-  termination_query = (
-        "A termination clause specifies the terms and conditions under which either party may legally "
-        "terminate the contract, including scenarios such as material breach, failure to perform obligations, "
-        "non-payment, insolvency, or termination for convenience. It outlines the required notice period, "
-        "obligations upon termination, and any penalties or liabilities associated with early termination."
+    termination_query = (
+        "A termination clause defines the grounds and procedures for ending the agreement. It specifies permissible events like breaches, insolvency, "
+        "or prolonged force majeure, along with notice requirements. It includes provisions for post-termination obligations, such as returning or destroying "
+        "confidential data, and offers remedies like refunds for prepaid but unused services. Certain rights, like data migration assistance, may extend into a "
+        "designated transition period to support seamless discontinuation."
     )
-  liability_query = (
-        "A liability clause delineates the extent of each party's legal responsibilities and obligations within "
-        "the contract. It defines the scope of liability for damages, losses, or injuries arising during contract "
-        "execution, including limitations of liability, indemnification provisions, exclusions of certain types of "
-        "damages, and caps on monetary liabilities to mitigate potential risks."
+
+    liability_query = (
+        "A liability clause sets limits on financial responsibility for damages caused under the contract. It outlines exclusions for indirect, punitive, "
+        "or consequential damages, and often caps recoverable amounts to fees paid within a specified period. The clause can provide carve-outs for gross negligence, "
+        "breaches of confidentiality, or specific indemnity obligations, ensuring accountability while controlling risk exposure."
     )
-  indemnification_query = (
-        "An indemnification clause outlines the obligations of one party to compensate the other for specified losses, "
-        "damages, liabilities, or expenses resulting from certain events or actions, including protection against "
-        "third-party claims, breaches of contract, negligence, or misconduct. It specifies the scope, procedures for "
-        "claims, and any limitations or exclusions to the indemnifying party's responsibilities."
+
+    indemnification_query = (
+        "An indemnification clause establishes obligations for one party to indemnify the other against potential losses or damages. This includes compensating for "
+        "harm arising from contract violations, security breaches, or intellectual property infringement. The clause details procedural steps, such as timely notice "
+        "of claims and cooperation in the defense process. It also specifies conditions under which indemnification is excluded, such as unauthorized use or client-provided designs."
     )
-  confidentiality_query = (
-        "A confidentiality clause mandates that the parties protect and refrain from disclosing sensitive, proprietary, "
-        "or confidential information obtained during the contract. It defines what constitutes confidential information, "
-        "the duration of confidentiality obligations, permitted disclosures, and the consequences of unauthorized "
-        "disclosure to safeguard trade secrets, intellectual property, and other private data."
+    
+    confidentiality_query = (
+        "A confidentiality clause safeguards sensitive information shared during the agreement. It defines what constitutes confidential information, mandates its secure "
+        "handling, and restricts disclosure to authorized individuals. Exceptions may include public domain knowledge or legal obligations. The clause specifies retention periods, "
+        "destruction protocols, and equitable remedies like injunctive relief for breaches."
     )
-  copyright_query = (
-        "A copyright clause specifies the ownership and rights related to the intellectual property created under the contract. "
-        "It outlines who retains the copyright, the scope of usage rights granted to each party, any restrictions on the use or "
-        "distribution of the copyrighted material, and the duration of these rights. The clause may also address issues such as "
-        "the transfer of copyright, licensing terms, moral rights, and obligations to protect the copyrighted work from infringement."
-        )
-  termination_clauses = extract_clauses(filename, termination_query, ClauseType.TERMINATION, clauses_collection)
-  liability_clauses = extract_clauses(filename, liability_query, ClauseType.LIABILITY, clauses_collection)
-  indemnification_clauses = extract_clauses(filename, indemnification_query, ClauseType.INDEMNIFICATION, clauses_collection)
-  confidentiality_clauses = extract_clauses(filename, confidentiality_query, ClauseType.CONFIDENTIALITY, clauses_collection)
-  copyright_clauses = extract_clauses(filename, copyright_query, ClauseType.COPYRIGHT, clauses_collection)
-  return termination_clauses + liability_clauses + indemnification_clauses + confidentiality_clauses + copyright_clauses
+
+    copyright_query = (
+        "A copyright clause delineates intellectual property rights over materials created during the contract. It specifies ownership of pre-existing IP, assigns rights to developed "
+        "works, and defines licensing terms for use. The clause includes provisions for protecting proprietary content from misuse and outlines scenarios for transferring rights or "
+        "addressing disputes, balancing innovation and ownership."
+    )
+
+    termination_clauses = extract_clauses(filename, termination_query, ClauseType.TERMINATION, clauses_collection)
+    liability_clauses = extract_clauses(filename, liability_query, ClauseType.LIABILITY, clauses_collection)
+    indemnification_clauses = extract_clauses(filename, indemnification_query, ClauseType.INDEMNIFICATION, clauses_collection)
+    confidentiality_clauses = extract_clauses(filename, confidentiality_query, ClauseType.CONFIDENTIALITY, clauses_collection)
+    copyright_clauses = extract_clauses(filename, copyright_query, ClauseType.COPYRIGHT, clauses_collection)
+    return termination_clauses + liability_clauses + indemnification_clauses + confidentiality_clauses + copyright_clauses
 
 TEMP_DIR = "./temp_files" 
 os.makedirs(TEMP_DIR, exist_ok=True)
