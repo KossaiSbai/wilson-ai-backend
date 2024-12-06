@@ -73,7 +73,7 @@ This repository includes two preloaded databases to simplify testing and develop
 - Automatically updated when new files are uploaded via the `/upload/` route.
 
 ### `chroma.sqlite3` (ChromaDB Persistent Database)
-- Contains embeddings for two preprocessed legal contracts.
+- Contains embeddings related to several preprocessed legal contracts.
 - Preloaded data allows for immediate testing of clause extraction without uploading new files.
 - The embeddings are created using the SentenceTransformer model `all-MiniLM-L6-v2`.
 
