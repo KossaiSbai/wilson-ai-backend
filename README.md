@@ -4,6 +4,22 @@ This repository contains the backend for Wilson AI, a FastAPI-based application 
 
 ---
 
+## Approach to Text Parsing, Chunking, and Clause Extraction
+1. Text Chunking
+Initial Approach: Used sentence splitting with manual word limits, but this often led to losing context in contract documents.
+Recursive Character Splitter (LangChain): Improved chunking but lacked awareness of document structure.
+Final Choice (Markdown Header Splitter): Observed that most contracts have logical structure indicated by markdown headers (#, ##, ###). The Markdown Header Text Splitter from LangChain leverages this structure, ensuring better context preservation in chunks.
+2. Querying ChromaDB
+- `n_results`: Tested several values, balancing relevance and recall. Settled on `n_results`=15 as it captures enough context without including too much noise.
+- Score Threshold: Set to 1.1 after tuning to ensure results are relevant but not overly restrictive. This ensures even subtle clause variations are retrieved.
+3. Clause Descriptions
+Crafted specific queries for each clause type (e.g., Termination, Liability) to capture their unique characteristics.
+Example (Termination Clause):
+"A termination clause specifies the terms and conditions under which either party may legally terminate the contract…"
+These detailed descriptions ensure that ChromaDB retrieves precise and relevant clauses.
+
+---
+
 ## Features
 
 - **Upload Documents:** Upload files for processing and clause extraction.
@@ -142,7 +158,6 @@ An array of file metadata stored in the database.
 ├── temp_files/                  # Temporary storage for uploaded files
 └── .env                         # Environment variables (not included in the repository)
 ```
-
 ---
 
 ## Notes
